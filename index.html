@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ReDrop</title>
+<meta name="description" content="ReDrop is a four-week water challenge from Ahmedabad University. Log your daily water use, see it in litres, and climb the leaderboard by using less.">
+<meta property="og:title" content="ReDrop">
+<meta property="og:description" content="Every drop has a number. Log your day, see your litres, and climb the board by using less.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3C16 3 6 15 6 21a10 10 0 0 0 20 0C26 15 16 3 16 3z' fill='%231E6B73'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind+Vadodara:wght@300;400;500;600;700&family=Martian+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="#top" aria-label="ReDrop, back to top">
+      <svg class="brand__drop" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C16 3 6 15 6 21a10 10 0 0 0 20 0C26 15 16 3 16 3z"/></svg>
+      <span>ReDrop</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#why">Why water</a>
+      <a href="#your-day">Your day</a>
+      <a href="#challenge">Challenge</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#research">Research</a>
+    </nav>
+    <a class="btn btn--small js-form-link" href="#" target="_blank" rel="noopener">Log today</a>
+  </div>
+</header>
+
+<aside class="gauge" aria-hidden="true">
+  <div class="gauge__scale">
+        <span class="gauge__tick" style="--at:50"><i>50</i></span>
+    <span class="gauge__tick" style="--at:100"><i>100</i></span>
+    <span class="gauge__tick gauge__tick--norm" style="--at:135"><i>135 norm</i></span>
+    <span class="gauge__tick" style="--at:200"><i>200</i></span>
+    <div class="gauge__fill"></div>
+    <div class="gauge__marker"><span class="gauge__read">0 L</span></div>
+  </div>
+</aside>
+
+<main id="main">
+
+<!-- HERO ------------------------------------------------------------------>
+<section class="hero" id="top">
+  <canvas class="hero__water" id="water" aria-hidden="true"></canvas>
+  <div class="wrap hero__content">
+    <p class="eyebrow">FDP Water · Module 4 · Group 1 · Ahmedabad University</p>
+    <h1 class="hero__title">Every drop<br>has a number.</h1>
+    <p class="hero__lede">Most of us have no idea how much water we use in a day. ReDrop turns your showers, flushes and laundry into litres, then puts everyone on one board. The lowest number wins.</p>
+    <div class="hero__actions">
+      <a class="btn js-form-link" href="#" target="_blank" rel="noopener">Log today's water
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+      <a class="btn btn--ghost" href="#leaderboard">See the leaderboard</a>
+    </div>
+    <p class="hero__hint" aria-hidden="true">Tap the water.</p>
+  </div>
+  <div class="wrap hero__readout" aria-live="polite">
+    <div class="readout">
+      <span class="readout__label">Pilot average</span>
+      <span class="readout__value"><b data-live="avg">–</b> L/day</span>
+    </div>
+    <div class="readout">
+      <span class="readout__label">City norm</span>
+      <span class="readout__value"><b>135</b> L/day</span>
+    </div>
+    <div class="readout">
+      <span class="readout__label">Current leader</span>
+      <span class="readout__value"><b data-live="leader">–</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- TODAY ----------------------------------------------------------------->
+<section class="today" aria-label="Today">
+  <div class="wrap today__grid">
+    <article class="today__cell today__tip">
+      <h2 class="label">Today's drop <span class="today__date" id="tip-date"></span></h2>
+      <p class="today__tiptext" id="tip-text">Turn the shower off while you soap up. At 10 litres a minute, two minutes saved is 20 litres.</p>
+    </article>
+    <article class="today__cell">
+      <h2 class="label">Board resets in</h2>
+      <p class="today__count" id="countdown">–</p>
+      <p class="small muted">Every Monday at midnight (IST). New week, clean slate.</p>
+    </article>
+    <article class="today__cell">
+      <h2 class="label">Your week</h2>
+      <ol class="streak" id="streak" aria-label="Days you logged this week"></ol>
+      <div class="streak__row">
+        <button class="btn btn--small btn--ghost" id="streak-btn" type="button">I logged today</button>
+        <span class="small muted" id="streak-note">Saved on this device only.</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- WHY ------------------------------------------------------------------->
+<div class="steps" aria-hidden="true"><svg viewBox="0 0 1000 48" preserveAspectRatio="none"><path d="M0 0H1000V6H940V12H880V18H820V24H760V30H700V36H640V42H600V48H400V42H360V36H300V30H240V24H180V18H120V12H60V6H0Z"/></svg></div>
+
+<section class="section" id="why">
+  <div class="wrap">
+    <p class="eyebrow">The problem</p>
+    <h2 class="h2">Water is finite. Our habits act like it isn't.</h2>
+    <div class="cols">
+      <div class="prose">
+        <p>We turn on a tap and water appears, so it feels endless. It isn't. Population growth, water-hungry lifestyles and careless everyday use are draining the clean, safe water we depend on.</p>
+        <p>Much of the waste hides in ordinary routines: a long shower, a tap left running while brushing, a half-empty washing load. Each one looks small. Repeated every day, by everyone on a campus, they add up to thousands of litres.</p>
+        <p>The real trouble is that nobody can see a litre. You can't measure your shower, so you can't tell what to cut. ReDrop gives you that number.</p>
+      </div>
+      <figure class="thousand">
+        <figcaption>
+          <span class="label">If all the water on Earth were 1,000 drops</span>
+        </figcaption>
+        <div class="thousand__grid" id="thousand" role="img" aria-label="1,000 drops: 975 are seawater, 17 are frozen in ice and glaciers, about 7 and a half are groundwater, and lakes and rivers make up less than half a drop."></div>
+        <ul class="legend">
+          <li><i class="sw sw--sea"></i><b>975</b> salt water in the oceans</li>
+          <li><i class="sw sw--ice"></i><b>17</b> frozen in ice caps and glaciers</li>
+          <li><i class="sw sw--ground"></i><b>7½</b> groundwater, much of it deep</li>
+          <li><i class="sw sw--surface"></i><b>&lt;½</b> lakes and rivers: the orange speck in the last drop</li>
+        </ul>
+        <p class="source">Based on USGS estimates of Earth's water distribution.</p>
+      </figure>
+    </div>
+
+    <div class="facts">
+      <div class="fact">
+        <p class="fact__num">18% <span>/</span> 4%</p>
+        <p>India is home to about 18% of the world's people but only about 4% of its freshwater.</p>
+        <p class="source">NITI Aayog, Composite Water Management Index (2018)</p>
+      </div>
+      <div class="fact">
+        <p class="fact__num">600M</p>
+        <p>Indians face high to extreme water stress.</p>
+        <p class="source">NITI Aayog, Composite Water Management Index (2018)</p>
+      </div>
+      <div class="fact">
+        <p class="fact__num">2.2B</p>
+        <p>people worldwide still lack safely managed drinking water.</p>
+        <p class="source">WHO / UNICEF Joint Monitoring Programme (2023)</p>
+      </div>
+      <div class="fact">
+        <p class="fact__num">10 L</p>
+        <p>flow from a typical shower every minute. A 15-minute shower is more than a full city ration.</p>
+        <p class="source">ReDrop calculation sheet</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR DAY -------------------------------------------------------------->
+<div class="steps steps--alt" aria-hidden="true"><svg viewBox="0 0 1000 48" preserveAspectRatio="none"><path d="M0 0H1000V6H940V12H880V18H820V24H760V30H700V36H640V42H600V48H400V42H360V36H300V30H240V24H180V18H120V12H60V6H0Z"/></svg></div>
+
+<section class="section section--alt" id="your-day">
+  <div class="wrap">
+    <p class="eyebrow">Try it before you log it</p>
+    <h2 class="h2">Your day, in litres.</h2>
+    <p class="lede">Pick the answers that match a normal day. This uses the same numbers as our spreadsheet, so it shows roughly where you'd land on the board.</p>
+
+    <div class="calc">
+      <form class="calc__form" id="calc" autocomplete="off">
+        <label class="field">
+          <span class="field__q">How many times do you flush the toilet?</span>
+          <select id="c-flush" name="flush"></select>
+        </label>
+        <label class="field">
+          <span class="field__q">How long is your average shower?</span>
+          <select id="c-shower" name="shower"></select>
+        </label>
+        <label class="field">
+          <span class="field__q">Do you leave the tap running while brushing?</span>
+          <select id="c-brush" name="brush"></select>
+        </label>
+        <label class="field">
+          <span class="field__q">How often do you wash clothes?</span>
+          <select id="c-washing" name="washing"></select>
+        </label>
+        <label class="field">
+          <span class="field__q">What do you do?</span>
+          <select id="c-other" name="other"></select>
+        </label>
+      </form>
+
+      <div class="calc__result" aria-live="polite">
+        <p class="label">Estimated daily use</p>
+        <p class="calc__total"><span id="calc-total">0</span><small>litres</small></p>
+        <div class="stack" id="calc-stack" role="img" aria-label="Breakdown of daily use"></div>
+        <ul class="stack__legend" id="calc-legend"></ul>
+        <p class="calc__verdict" id="calc-verdict"></p>
+        <a class="btn js-form-link" href="#" target="_blank" rel="noopener">Make it official in the form
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+        <p class="small muted">Everyday extras like drinking, cooking and handwashing are covered by a fixed allowance for your occupation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE ------------------------------------------------------------->
+<div class="steps" aria-hidden="true"><svg viewBox="0 0 1000 48" preserveAspectRatio="none"><path d="M0 0H1000V6H940V12H880V18H820V24H760V30H700V36H640V42H600V48H400V42H360V36H300V30H240V24H180V18H120V12H60V6H0Z"/></svg></div>
+
+<section class="section" id="challenge">
+  <div class="wrap">
+    <p class="eyebrow">The ReDrop challenge</p>
+    <h2 class="h2">Four weeks. One number. Go lower.</h2>
+
+    <ol class="how">
+      <li>
+        <h3>Log your day</h3>
+        <p>Answer a short Google Form: flushes, shower length, the tap while brushing, laundry. It takes about two minutes. Use any name you like.</p>
+      </li>
+      <li>
+        <h3>We turn it into litres</h3>
+        <p>Our sheet converts every answer using standard flow rates, like 10 litres a shower-minute and 5 litres a flush.</p>
+      </li>
+      <li>
+        <h3>The board ranks you</h3>
+        <p>Everyone is sorted by estimated litres per day. The lowest number sits at the top.</p>
+      </li>
+      <li>
+        <h3>Monday, start again</h3>
+        <p>The board resets every Monday. Beat your own number, then beat your friends'.</p>
+      </li>
+    </ol>
+
+    <div class="timeline" aria-label="Pilot timeline">
+      <div class="timeline__week timeline__week--base">
+        <span class="label">Week 1</span>
+        <b>Baseline</b>
+        <span>Log daily. No board yet, so we learn your normal.</span>
+      </div>
+      <div class="timeline__week">
+        <span class="label">Week 2</span>
+        <b>Board goes live</b>
+        <span>See where you stand.</span>
+      </div>
+      <div class="timeline__week">
+        <span class="label">Week 3</span>
+        <b>Push lower</b>
+        <span>Small changes, real litres.</span>
+      </div>
+      <div class="timeline__week">
+        <span class="label">Week 4</span>
+        <b>Final ranking</b>
+        <span>Compare against your baseline.</span>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <p>Ready to find your number?</p>
+      <a class="btn js-form-link" href="#" target="_blank" rel="noopener">Open the form
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERBOARD ----------------------------------------------------------->
+<section class="board" id="leaderboard">
+  <div class="steps steps--in" aria-hidden="true"><svg viewBox="0 0 1000 48" preserveAspectRatio="none"><path d="M0 0H1000V6H940V12H880V18H820V24H760V30H700V36H640V42H600V48H400V42H360V36H300V30H240V24H180V18H120V12H60V6H0Z"/></svg></div>
+  <div class="wrap">
+    <div class="board__head">
+      <div>
+        <p class="eyebrow">Live from Google Sheets</p>
+        <h2 class="h2">This week's board</h2>
+        <p class="lede">Estimated litres per person per day. Lowest first. Tap a name to see where the water went.</p>
+      </div>
+      <div class="board__tools">
+        <label class="search">
+          <span class="visually-hidden">Find your name</span>
+          <input id="board-search" type="search" placeholder="Find your name">
+        </label>
+        <button class="btn btn--small btn--on-dark" id="board-refresh" type="button">Refresh</button>
+      </div>
+    </div>
+
+    <dl class="board__stats">
+      <div><dt>Participants</dt><dd data-live="count">–</dd></div>
+      <div><dt>Lowest</dt><dd><span data-live="min">–</span> L</dd></div>
+      <div><dt>Median</dt><dd><span data-live="median">–</span> L</dd></div>
+      <div><dt>Under the 135 L norm</dt><dd data-live="under">–</dd></div>
+    </dl>
+
+    <div class="board__axis" aria-hidden="true">
+      <span></span><span></span>
+      <div class="board__axistrack" id="board-axis"></div>
+      <span></span>
+    </div>
+    <ol class="board__list" id="board-list" aria-live="polite">
+      <li class="board__empty">Loading the board…</li>
+    </ol>
+
+    <p class="board__status small" id="board-status">Connecting to Google Sheets…</p>
+    <p class="small board__open"><a href="#" class="js-sheet-link" target="_blank" rel="noopener">Open the full sheet</a></p>
+  </div>
+</section>
+
+<!-- PERCEPTION GAP -------------------------------------------------------->
+<div class="steps steps--out" aria-hidden="true"><svg viewBox="0 0 1000 48" preserveAspectRatio="none"><path d="M0 0H1000V6H940V12H880V18H820V24H760V30H700V36H640V42H600V48H400V42H360V36H300V30H240V24H180V18H120V12H60V6H0Z"/></svg></div>
+
+<section class="section" id="gap">
+  <div class="wrap">
+    <p class="eyebrow">What the survey shows</p>
+    <h2 class="h2" id="gap-title">We guess low.</h2>
+    <p class="lede" id="gap-lede">Before we calculate anything, the form asks how much water you think you use. Here is each guess next to the number the sheet worked out.</p>
+
+    <div class="gap">
+      <div class="gap__legend">
+        <span><i class="gap__key gap__key--band"></i>Their guess</span>
+        <span><i class="gap__key gap__key--dot"></i>Calculated use</span>
+        <span><i class="gap__key gap__key--norm"></i>135 L city norm</span>
+      </div>
+      <div class="gap__chart" id="gap-chart"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -------------------------------------------------------------->
+<div class="steps steps--alt" aria-hidden="true"><svg viewBox="0 0 1000 48" preserveAspectRatio="none"><path d="M0 0H1000V6H940V12H880V18H820V24H760V30H700V36H640V42H600V48H400V42H360V36H300V30H240V24H180V18H120V12H60V6H0Z"/></svg></div>
+
+<section class="section section--alt" id="research">
+  <div class="wrap">
+    <p class="eyebrow">The research behind it</p>
+    <h2 class="h2">Why a leaderboard?</h2>
+    <div class="cols">
+      <div class="prose">
+        <p>Earlier studies found that feedback, games and comparing yourself with others can cut water use. Seeing a number, and seeing your neighbour's, changes behaviour.</p>
+        <p>Water is also stubborn. In one dormitory competition, electricity use fell 32% while water use fell only 3%. Water habits are harder to shift, which is exactly why they need attention.</p>
+        <p>Most of those projects relied on smart meters and sensors. <strong>Our question is whether a game still works without any hardware</strong>, using only a free form, a spreadsheet and this website.</p>
+      </div>
+      <figure class="bars">
+        <figcaption class="label">Reported drop in water use</figcaption>
+        <div class="bars__row">
+          <span class="bars__name">SmartH2O<small>gamified meter app, leaderboards and badges</small></span>
+          <span class="bars__track"><i style="--v:27"></i></span>
+          <b>27%</b>
+        </div>
+        <div class="bars__row">
+          <span class="bars__name">Dubuque Water Portal<small>303 households, 15 weeks, social comparison</small></span>
+          <span class="bars__track"><i style="--v:6.6"></i></span>
+          <b>6.6%</b>
+        </div>
+        <div class="bars__row">
+          <span class="bars__name">Oberlin dorm contest<small>real-time feedback; electricity fell 32%</small></span>
+          <span class="bars__track"><i style="--v:3"></i></span>
+          <b>3%</b>
+        </div>
+        <p class="source">Novak et al. 2018 · Erickson et al. 2012 · Petersen et al. 2007</p>
+      </figure>
+    </div>
+
+    <div class="method">
+      <div>
+        <h3 class="h3">How we're testing it</h3>
+        <ul class="ticks">
+          <li>A four-week pilot with about 30 to 50 volunteer students.</li>
+          <li>Week one is a baseline with no leaderboard. Weeks two to four show the board.</li>
+          <li>We compare each person's average daily estimate before and after the board appears, and track how consistently people log.</li>
+          <li>Short questionnaires at the start and end measure awareness and what people think of ReDrop.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="h3">What the numbers can't tell us</h3>
+        <ul class="ticks">
+          <li>Everything is self-reported, so it depends on honest answers.</li>
+          <li>Ranges become midpoints: "5 to 10 minutes" counts as 7.5 minutes. These are estimates, not meter readings.</li>
+          <li>A small volunteer group isn't the whole campus. Any change we see is a signal, not proof.</li>
+          <li>Participants use aliases, and nothing that identifies you appears on the board.</li>
+        </ul>
+      </div>
+    </div>
+
+    <details class="refs">
+      <summary>References</summary>
+      <ol>
+        <li>Okutan P, Akkoyunlu A. (2021) Identification of water use behavior and calculation of water footprint: a case study. <i>Applied Water Science</i>, 11(7):126.</li>
+        <li>Petersen JE, Shunturov V, Janda K, Platt G, Weinberger K. (2007) Dormitory residents reduce electricity consumption when exposed to real-time visual feedback and incentives. <i>International Journal of Sustainability in Higher Education</i>, 8(1):16–33.</li>
+        <li>Erickson T, Podlaseck M, Sahu S, Dai JD, Chao T, Naphade M. (2012) The Dubuque Water Portal: Evaluation of a residential water conservation program. <i>Journal of Water Resources Planning and Management</i>, 138(5):483–491.</li>
+        <li>Novak J, Rizzoli AE, Cominola A, Castelletti A. (2018) SmartH2O: Gamified water meter application. SmartH2O Project Deliverable D7.3.</li>
+        <li>Pesantez JE, Vizanko B, Berglund EZ. (2024) Modeling a game to shift peak water demands: WaterTime leaderboard. <i>Journal of Cleaner Production</i>, 470:14324.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- TEAM ------------------------------------------------------------------>
+<section class="section team" id="team">
+  <div class="wrap">
+    <p class="eyebrow">Group 1 · FDP Water, Module 4</p>
+    <h2 class="h2">The people behind ReDrop</h2>
+    <ul class="team__list">
+      <li>Dhyey Mody</li>
+      <li>Milaap Desai</li>
+      <li>Tanay Patel</li>
+      <li>Sibangini Gajurel</li>
+      <li>Anjali Gehlod</li>
+      <li>Sakshi Jain</li>
+    </ul>
+    <p class="team__thanks">With thanks to <strong>Prof. Ashim Rai</strong> and Teaching Associate <strong>Nainika Bajaj</strong> for their guidance, and to Ahmedabad University.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__word" lang="gu">પાણી બચાવો</p>
+    <p class="small">Save water. ReDrop is a student research project at Ahmedabad University. Litre figures are estimates from self-reported answers.</p>
+    <p class="small"><a href="#" class="js-form-link" target="_blank" rel="noopener">Google Form</a> · <a href="#" class="js-sheet-link" target="_blank" rel="noopener">Google Sheet</a> · <a href="#top">Back to top</a></p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
