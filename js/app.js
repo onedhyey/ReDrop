@@ -411,7 +411,7 @@
     axis.innerHTML = ticks;
 
     if (!state.board.length) { list.innerHTML = '<li class="board__empty">No entries yet this week. Be the first.</li>'; return; }
-    var medal = ["var(--marigold)", "#c9d6d6", "#b58a63"];
+    var medal = ["var(--accent-mark)", "#c9d6d6", "#b58a63"];
     list.innerHTML = state.board.map(function (b, i) {
       var cls = (i < 3 ? "is-top " : "") + (i === 0 ? "is-first" : "");
       var icon = i < 3 ? DROP(medal[i]) : "";
