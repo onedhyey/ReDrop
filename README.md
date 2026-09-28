@@ -4,7 +4,8 @@ A gamified water-conservation website for university students, built by Group 1 
 FDP Water, Module 4, at Ahmedabad University.
 
 **Team:** Dhyey Mody, Milaap Desai, Tanay Patel, Sibangini Gajurel, Anjali Gehlod, Sakshi Jain
-**Guidance:** Prof. Ashim Rai and Teaching Associate Nainika Bajaj
+
+Guidance: Prof. Ashim Rai and Teaching Associate Nainika Bajaj
 
 ## What the site does
 
