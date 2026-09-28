@@ -398,16 +398,50 @@
     <p class="eyebrow">Group 1 · FDP Water, Module 4</p>
     <h2 class="h2">The people behind ReDrop</h2>
     <ul class="team__list">
-      <li>Dhyey Mody</li>
-      <li>Milaap Desai</li>
-      <li>Tanay Patel</li>
-      <li>Sibangini Gajurel</li>
-      <li>Anjali Gehlod</li>
-      <li>Sakshi Jain</li>
+      <li><span class="team__name">Dhyey Mody</span><span class="team__role">Tech: code and design</span></li>
+      <li><span class="team__name">Milaap Desai</span><span class="team__role">Google Form and spreadsheet</span></li>
+      <li><span class="team__name">Sakshi Jain</span><span class="team__role">Google Form and spreadsheet</span></li>
+      <li><span class="team__name">Tanay Patel</span><span class="team__role">Research</span></li>
+      <li><span class="team__name">Sibangini Gajurel</span><span class="team__role">Research</span></li>
+      <li><span class="team__name">Anjali Gehlod</span><span class="team__role">Research</span></li>
     </ul>
     <div class="team__foot">
       <p class="team__thanks">With thanks to <strong>Prof. Ashim Rai</strong> and Teaching Associate <strong>Nainika Bajaj</strong> for their guidance, and to Ahmedabad University.</p>
       <img class="team__logo au-logo" src="assets/ahmedabad-university-logo.png" alt="Ahmedabad University" width="1003" height="329" loading="lazy">
+    </div>
+  </div>
+</section>
+
+
+<!-- OPEN SOURCE ----------------------------------------------------------->
+<section class="section oss" id="source">
+  <div class="wrap oss__grid">
+    <div class="oss__copy">
+      <p class="eyebrow">Open source</p>
+      <h2 class="h2">Every line of this site is public.</h2>
+      <p class="lede">ReDrop is hand-written HTML, CSS and JavaScript. No framework, no build step, no database, no trackers. The leaderboard is read straight from a Google Sheet in your browser. Read the code, fork it, and run the challenge on your own campus.</p>
+      <dl class="oss__stats">
+        <div><dt>Lines of code</dt><dd>1,500+</dd></div>
+        <div><dt>Frameworks</dt><dd>0</dd></div>
+        <div><dt>Build steps</dt><dd>0</dd></div>
+        <div><dt>Databases</dt><dd>0</dd></div>
+      </dl>
+      <a class="btn js-repo-link" href="#" target="_blank" rel="noopener">Read the code on GitHub
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+    </div>
+    <div class="term" aria-label="Repository">
+      <div class="term__bar"><i></i><i></i><i></i><span>onedhyey/ReDrop</span></div>
+      <div class="term__cmd">
+        <code><span class="term__prompt">$</span> git clone <span id="clone-url">https://github.com/onedhyey/ReDrop.git</span></code>
+        <button class="term__copy" id="clone-copy" type="button">Copy</button>
+      </div>
+      <ul class="term__tree">
+        <li><b>index.html</b><span>structure and every word on the page</span></li>
+        <li><b>css/style.css</b><span>themes, layout and the stepwell edges</span></li>
+        <li><b>js/app.js</b><span>water surface, calculator, live leaderboard, charts</span></li>
+        <li><b>js/config.js</b><span>form link, sheet tabs and litre rates</span></li>
+        <li><b>assets/</b><span>Ahmedabad University logo</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -418,7 +452,7 @@
   <div class="wrap footer__inner">
     <p class="footer__word" lang="gu">પાણી બચાવો</p>
     <p class="small">Save water. ReDrop is a student research project at Ahmedabad University. Litre figures are estimates from self-reported answers.</p>
-    <p class="small"><a href="#" class="js-form-link" target="_blank" rel="noopener">Google Form</a> · <a href="#" class="js-sheet-link" target="_blank" rel="noopener">Google Sheet</a> · <a href="#top">Back to top</a></p>
+    <p class="small"><a href="#" class="js-form-link" target="_blank" rel="noopener">Google Form</a> · <a href="#" class="js-sheet-link" target="_blank" rel="noopener">Google Sheet</a> · <a href="#" class="js-repo-link" target="_blank" rel="noopener">Source code</a> · <a href="#top">Back to top</a></p>
   </div>
 </footer>
 

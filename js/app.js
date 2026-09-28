@@ -26,6 +26,25 @@
   /* ---------- links ---------- */
   $$(".js-form-link").forEach(function (a) { a.href = C.formUrl; });
   $$(".js-sheet-link").forEach(function (a) { a.href = C.sheetUrl; });
+  $$(".js-repo-link").forEach(function (a) { a.href = C.repoUrl; });
+
+  /* ---------- copy the clone command ---------- */
+  (function copyClone() {
+    var btn = $("#clone-copy"), url = $("#clone-url");
+    if (!btn) return;
+    url.textContent = C.repoUrl + ".git";
+    function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = "Copy"; }, 1800); }
+    function selectText() {
+      var r = document.createRange(); r.selectNodeContents(url);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+    btn.addEventListener("click", function () {
+      var text = "git clone " + url.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done("Copied"); }, function () { selectText(); done("Press Ctrl+C"); });
+      } else { selectText(); done("Press Ctrl+C"); }
+    });
+  })();
 
   /* ---------- theme: light by default, dark on request ---------- */
   (function theme() {

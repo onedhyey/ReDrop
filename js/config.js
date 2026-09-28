@@ -6,6 +6,7 @@ window.REDROP = {
     "https://docs.google.com/forms/d/e/1FAIpQLSdt7gEwifZoqTnd7J8OERAvghaiePeS0dAzs3LOEYHCsidEGw/viewform",
   sheetUrl:
     "https://docs.google.com/spreadsheets/d/15qCB06wdptLYfQGpKLxmc1UjI7Hvbhj6TJtiWeb2cFw/edit?usp=drivesdk",
+  repoUrl: "https://github.com/onedhyey/ReDrop",
   sheetId: "15qCB06wdptLYfQGpKLxmc1UjI7Hvbhj6TJtiWeb2cFw",
 
   // Tab ids (the "gid" in the sheet URL). The sheet must stay shared as
