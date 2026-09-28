@@ -15,6 +15,7 @@
   --water: #1e6b73;
   --water-2: #2f8a93;
   --water-deep: #0f3f45;
+  --water-ink: #1e6b73;      /* big numbers set in teal */
   --on-water: #eaf6f5;
   --accent: #7f1114;        /* Ahmedabad University burgundy: buttons */
   --accent-hover: #971a1e;
@@ -29,12 +30,12 @@
   --well-ink: #e6f1ef;
   --well-muted: #93b3b3;
 
-  /* chart series (validated for CVD separation) */
-  --s-shower: #2a78d6;
-  --s-flush: #eb6834;
-  --s-washing: #1baf7a;
-  --s-brush: #eda100;
-  --s-other: #e87ba4;
+  /* breakdown bar: one teal, stepped from deep to pale (largest share darkest) */
+  --s-shower: #0f3f45;
+  --s-flush: #1e6b73;
+  --s-washing: #4a959c;
+  --s-brush: #86bcc0;
+  --s-other: #bfdcde;
 
   --display: "Rozha One", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --text: "Hind Vadodara", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -58,6 +59,7 @@
   --water: #1b5d65;
   --water-2: #2a7d86;
   --water-deep: #0c3238;
+  --water-ink: #7fc3c8;
   --on-water: #e8f5f4;
   --accent: #a3242a;
   --accent-hover: #b92f35;
@@ -67,11 +69,11 @@
   --well: #061215;
   --well-2: #0d2226;
   --well-line: #1f3f45;
-  --s-shower: #3987e5;
-  --s-flush: #d95926;
-  --s-washing: #199e70;
-  --s-brush: #c98500;
-  --s-other: #d55181;
+  --s-shower: #d2ecee;
+  --s-flush: #93cdd2;
+  --s-washing: #5aaab2;
+  --s-brush: #34838b;
+  --s-other: #1f5d64;
 }
 
 /* Light is the default. Dark only applies when the visitor picks it with the toggle. */
@@ -241,7 +243,7 @@ p { margin: 0; }
 .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: clamp(32px, 5vw, 64px); border-top: 1.5px solid var(--ink); }
 .fact { display: grid; align-content: start; gap: 8px; padding: 20px 20px 0 0; color: var(--ink-2); font-size: 15px; }
 .fact + .fact { padding-left: 20px; border-left: 1px solid var(--line); }
-.fact__num { font: 400 clamp(38px, 4.4vw, 54px)/1 var(--display); color: var(--water); }
+.fact__num { font: 400 clamp(38px, 4.4vw, 54px)/1 var(--display); color: var(--water-ink); }
 .fact__num span { color: var(--muted); font-size: .6em; }
 @media (max-width: 900px) {
   .facts { grid-template-columns: 1fr 1fr; }
@@ -267,7 +269,7 @@ p { margin: 0; }
 }
 .field select:hover { border-color: var(--muted); }
 .calc__result { display: grid; gap: 14px; justify-items: start; padding: clamp(20px, 3vw, 32px); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; position: sticky; top: 84px; }
-.calc__total { display: flex; align-items: baseline; gap: 10px; font: 400 clamp(72px, 10vw, 112px)/.9 var(--display); color: var(--water); font-variant-numeric: tabular-nums; }
+.calc__total { display: flex; align-items: baseline; gap: 10px; font: 400 clamp(72px, 10vw, 112px)/.9 var(--display); color: var(--water-ink); font-variant-numeric: tabular-nums; }
 .calc__total small { font: 500 14px/1 var(--mono); color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
 .stack { width: 100%; height: 22px; display: flex; gap: 2px; border-radius: 4px; overflow: hidden; background: var(--ground-2); }
 .stack i { display: block; flex: 1 1 0; height: 100%; transition: flex-grow .4s ease; min-width: 2px; }
@@ -282,7 +284,7 @@ p { margin: 0; }
 /* ---------- challenge ---------- */
 .how { list-style: none; counter-reset: how; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(18px, 3vw, 36px); }
 .how li { counter-increment: how; display: grid; align-content: start; gap: 8px; padding-top: 16px; border-top: 1.5px solid var(--ink); color: var(--ink-2); font-size: 16px; }
-.how li::before { content: counter(how); font: 400 44px/1 var(--display); color: var(--water); }
+.how li::before { content: counter(how); font: 400 44px/1 var(--display); color: var(--water-ink); }
 .how h3 { font: 600 19px/1.25 var(--text); color: var(--ink); }
 @media (max-width: 900px) { .how { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .how { grid-template-columns: 1fr; } }
@@ -304,7 +306,7 @@ p { margin: 0; }
 .cta-band p { font: 400 clamp(26px, 3.4vw, 36px)/1.1 var(--display); }
 
 /* ---------- leaderboard (the well) ---------- */
-.board { --accent-mark: #ec8e92; --focus: #ec8e92; background: var(--well); color: var(--well-ink); padding-block: 0 clamp(56px, 8vw, 96px); }
+.board { --s-shower: #d2ecee; --s-flush: #93cdd2; --s-washing: #5aaab2; --s-brush: #34838b; --s-other: #1f5d64; --accent-mark: #ec8e92; --focus: #ec8e92; background: var(--well); color: var(--well-ink); padding-block: 0 clamp(56px, 8vw, 96px); }
 .board .eyebrow, .board .label { color: var(--well-muted); }
 .board .lede { color: var(--well-muted); }
 .board > .wrap { display: grid; gap: 22px; }
@@ -446,7 +448,7 @@ p { margin: 0; }
 .oss__stats > div { padding: 12px 12px 0 0; }
 .oss__stats > div + div { padding-left: 12px; border-left: 1px solid var(--line); }
 .oss__stats dt { font: 500 10px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.oss__stats dd { margin: 4px 0 0; font: 400 34px/1 var(--display); color: var(--water); }
+.oss__stats dd { margin: 4px 0 0; font: 400 34px/1 var(--display); color: var(--water-ink); }
 .term { --focus: #ec8e92; background: var(--well); color: var(--well-ink); border-radius: 10px; overflow: hidden; font: 400 13px/1.6 var(--mono); box-shadow: 0 24px 48px -28px rgba(8, 30, 34, .55); }
 .term__bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; background: var(--well-2); border-bottom: 1px solid var(--well-line); }
 .term__bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--well-line); }
