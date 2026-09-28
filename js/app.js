@@ -27,6 +27,23 @@
   $$(".js-form-link").forEach(function (a) { a.href = C.formUrl; });
   $$(".js-sheet-link").forEach(function (a) { a.href = C.sheetUrl; });
 
+  /* ---------- theme: light by default, dark on request ---------- */
+  (function theme() {
+    var root = document.documentElement, btn = $("#theme-toggle");
+    function sync() {
+      var dark = root.getAttribute("data-theme") === "dark";
+      btn.setAttribute("aria-pressed", String(dark));
+      btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+    }
+    btn.addEventListener("click", function () {
+      var dark = root.getAttribute("data-theme") !== "dark";
+      if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
+      try { localStorage.setItem("redrop-theme", dark ? "dark" : "light"); } catch (e) { /* storage unavailable */ }
+      sync();
+    });
+    sync();
+  })();
+
   /* ---------- the water surface ---------- */
   (function water() {
     var cv = $("#water");
@@ -139,7 +156,6 @@
       new IntersectionObserver(function (en) { visible = en[0].isIntersecting; visible ? start() : stop(); }).observe(hero);
     }
     document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { readColors(); if (!running) frame(performance.now()); });
     new MutationObserver(function () { readColors(); if (!running) frame(performance.now()); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);

@@ -43,34 +43,6 @@
   --radius: 6px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --ground: #0b191c;
-    --ground-2: #102226;
-    --paper: #132a2e;
-    --ink: #e4eeec;
-    --ink-2: #b9cbca;
-    --muted: #8ea4a4;
-    --line: #25403f;
-    --stone: #1a3236;
-    --water: #1b5d65;
-    --water-2: #2a7d86;
-    --water-deep: #0c3238;
-    --on-water: #e8f5f4;
-    --marigold: #f0a24a;
-    --marigold-ink: #1c1206;
-    --focus: #f0a24a;
-    --well: #061215;
-    --well-2: #0d2226;
-    --well-line: #1f3f45;
-    --s-shower: #3987e5;
-    --s-flush: #d95926;
-    --s-washing: #199e70;
-    --s-brush: #c98500;
-    --s-other: #d55181;
-  }
-}
 :root[data-theme="dark"] {
   color-scheme: dark;
   --ground: #0b191c;
@@ -97,6 +69,8 @@
   --s-brush: #c98500;
   --s-other: #d55181;
 }
+
+/* Light is the default. Dark only applies when the visitor picks it with the toggle. */
 
 /* ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -168,7 +142,13 @@ p { margin: 0; }
 .nav { display: flex; gap: 22px; margin-left: auto; font-size: 15px; }
 .nav a { text-decoration: none; color: var(--ink-2); }
 .nav a:hover { color: var(--ink); }
-@media (max-width: 820px) { .nav { display: none; } .topbar__inner > .btn { margin-left: auto; } }
+.theme-toggle { display: inline-grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-2); cursor: pointer; }
+.theme-toggle:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.theme-toggle .i-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+@media (max-width: 820px) { .nav { display: none; } .topbar__inner > .theme-toggle { margin-left: auto; } }
 
 /* ---------- depth gauge ---------- */
 .gauge { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); height: min(62vh, 520px); width: 64px; z-index: 10; pointer-events: none; display: none; }
@@ -187,6 +167,7 @@ p { margin: 0; }
 .hero__water { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; cursor: pointer; }
 .hero__content { display: grid; gap: 22px; justify-items: start; pointer-events: none; }
 .hero__content a, .hero__content button { pointer-events: auto; }
+.hero__logo { display: block; height: clamp(44px, 6vw, 64px); width: auto; margin-bottom: 4px; }
 .hero__title { font: 400 clamp(56px, 11vw, 148px)/.9 var(--display); letter-spacing: -.02em; }
 .hero__lede { max-width: 52ch; font-size: clamp(17px, 2vw, 20px); color: var(--ink-2); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
@@ -445,6 +426,10 @@ p { margin: 0; }
 @media (max-width: 700px) { .team__list { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 420px) { .team__list { grid-template-columns: 1fr; } }
 .team__thanks { color: var(--ink-2); max-width: 64ch; }
+.team__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 48px; margin-top: 8px; }
+.team__logo { display: block; height: 72px; width: auto; max-width: 100%; }
+/* the logo's grey wordmark needs a light plate in dark mode */
+:root[data-theme="dark"] .au-logo { background: #f4f6f5; padding: 10px 14px; border-radius: 8px; box-sizing: content-box; }
 .team__thanks strong { color: var(--ink); font-weight: 600; }
 
 /* ---------- footer ---------- */
